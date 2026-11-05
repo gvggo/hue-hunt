@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hue Hunt — the daily color-matching game</title>
+  <meta name="description" content="Match today's mystery color by eye in 6 tries. New color every day, same for everyone. Share your emoji grid." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Hue Hunt — can you match today's color?" />
+  <meta property="og:description" content="One mystery color a day, 6 tries, no numbers — just your eyes. Share your emoji grid." />
+  <meta property="og:url" content="https://gvggo.github.io/hue-hunt/" />
+  <meta property="og:image" content="https://gvggo.github.io/hue-hunt/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#111318" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><span class="logo">🎨</span><div><h1>Hue Hunt</h1><p class="tag" id="subtitle">Daily color match</p></div></div>
+    <div class="row">
+      <button class="btn ghost" id="helpBtn" aria-label="How to play">?</button>
+      <button class="btn ghost" id="statsBtn" aria-label="Statistics">📊</button>
+    </div>
+  </header>
+  <main>
+    <div class="modes" role="tablist">
+      <button class="mode active" data-mode="daily" role="tab">Daily</button>
+      <button class="mode" data-mode="practice" role="tab">Practice</button>
+    </div>
+    <section class="swatches">
+      <figure><div class="swatch" id="target"></div><figcaption>Target</figcaption></figure>
+      <figure><div class="swatch" id="mine"></div><figcaption>Your mix</figcaption></figure>
+    </section>
+    <section class="card" id="controls">
+      <label class="slider"><span>Hue</span><input type="range" id="h" min="0" max="359" value="180" /></label>
+      <label class="slider"><span>Saturation</span><input type="range" id="s" min="0" max="100" value="50" /></label>
+      <label class="slider"><span>Lightness</span><input type="range" id="l" min="0" max="100" value="50" /></label>
+      <div class="row between">
+        <span class="hint" id="left">6 guesses left</span>
+        <button class="btn primary" id="guessBtn">Guess</button>
+      </div>
+    </section>
+    <section class="card" id="history" aria-live="polite"><p class="hint">Drag the sliders until your mix matches the target, then hit Guess. Arrows tell you which way to move.</p></section>
+    <section class="card result" id="result" hidden>
+      <h2 id="resultTitle"></h2>
+      <p id="resultText" class="hint"></p>
+      <pre id="sharePreview"></pre>
+      <div class="row">
+        <button class="btn primary" id="shareBtn">Share result</button>
+        <button class="btn" id="againBtn" hidden>New practice color</button>
+      </div>
+      <p class="hint" id="countdown"></p>
+    </section>
+  </main>
+  <dialog id="help"><h2>How to play</h2>
+    <ul><li>Match the <b>target</b> color using Hue, Saturation and Lightness sliders — no numbers, just your eyes.</li>
+    <li>You get <b>6 guesses</b>. Score ≥ 90% wins.</li>
+    <li>Each guess shows 3 tiles: Hue · Saturation · Lightness. 🟩 close, 🟨 near, ⬛ far, with arrows (↑ more / ↓ less, ↻ ↺ for hue).</li>
+    <li>Everyone gets the <b>same color each day</b>. Your streak is saved only in this browser.</li></ul>
+    <form method="dialog"><button class="btn primary">Got it</button></form></dialog>
+  <dialog id="stats"><h2>Your stats</h2><div id="statsBody"></div><form method="dialog"><button class="btn primary">Close</button></form></dialog>
+  <div class="toast" id="toast" hidden></div>
+  <footer>Everything stays in your browser (localStorage). No tracking, no accounts. · <a href="https://github.com/gvggo/hue-hunt">Code</a> · <a href="https://gvggo.github.io/">More projects</a></footer>
+  <script src="logic.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
